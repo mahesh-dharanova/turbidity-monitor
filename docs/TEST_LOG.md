@@ -54,3 +54,42 @@ Dated hardware-in-loop verification entries. Never edit a past entry — append 
   `health`/plausibility signal later — noted here, not acted on in Phase 1 (see
   `architecture.md`'s house rule: health and calibration stay independent signals; this is a
   design question for a future chunk, not something to merge in now).
+
+## 2026-10-19 — Powdered-solution follow-up: settling behavior investigation
+
+User flagged the original powdered-solution reading (~3.00–3.13V) as untrustworthy; this
+session re-dipped the same board/wiring multiple times to find out why, same day as Chunk 2.
+
+- **2nd dip**: user added more powder + extra water to the cup, then immediately re-dipped
+  (solution still actively mixing). Reading: **~2.41–2.66V**, noisy (~±0.1–0.2V), never
+  settled across two 15s captures. Lower than the 1st dip's ~3.00–3.13V — consistent
+  direction (more powder added = more turbid = lower voltage), not an error.
+- **3rd dip**: same (now-modified) solution, no further changes, just rinsed and re-dipped a
+  few minutes later. Reading: **~3.12–3.24V**, drifting upward over ~30s of observation, back
+  near the 1st dip's range — NOT matching the 2nd dip taken on the same solution minutes
+  earlier.
+- **Conclusion**: this is sample behavior, not sensor or wiring flakiness. An unstirred
+  powder suspension settles under gravity within minutes; the water near the probe clears
+  as particles sink, so voltage drifts back up toward the clear-liquid range the longer the
+  solution sits unstirred after mixing. A "turbid solution" reading is only meaningful
+  relative to how recently and how well it was agitated — it is not a stable sample like
+  distilled or lemon water.
+- **Active-stirring test**: with the probe held in place and the solution continuously
+  stirred, reading dropped and stabilized at **~2.81–2.95V**, noise tightening to ~±0.07V —
+  tighter than any of the unstirred turbid readings (~±0.1–0.2V) and far tighter than the
+  transient spike during the stirring motion itself (~0.48V spread as particles were first
+  resuspended). This is the cleanest, most repeatable "actively turbid" reading captured so
+  far.
+
+### Open items carried forward
+
+- Any future turbidity reading protocol (calibration or normal operation) needs to specify
+  agitation state — e.g. "read N seconds after stirring stops" or "read while continuously
+  stirred" — since the same cup can read anywhere from ~2.4V to ~3.2V depending purely on
+  settling time, with no change in total powder/water content.
+- Settling rate (voltage recovering from ~2.5V toward ~3.2V over tens of seconds to minutes)
+  was observed qualitatively, not timed precisely — worth a dedicated timed-settling session
+  before Phase 2 calibration locks in a measurement protocol.
+- The active-stirring noise floor (~±0.07V) vs. unstirred noise (~±0.1–0.2V) is itself
+  informative: stirring produces a *more* consistent high-turbidity reading than letting the
+  sample settle partially, since partial settling is itself a moving target.

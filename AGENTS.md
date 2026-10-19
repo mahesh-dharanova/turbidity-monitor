@@ -89,3 +89,8 @@ needing hardware you don't have physical access to verify.
   still unverified (Phase 2 scope).
 - Turbidity may show up as noise/variance rather than a mean-voltage shift — don't assume a
   single scalar reading per sample is enough; see `docs/TEST_LOG.md`'s 2026-10-19 entry.
+- A settleable powder suspension is NOT a stable turbidity sample: voltage drifts back
+  toward the clear-liquid range within minutes of stopping stirring. Any calibration or
+  measurement protocol must fix the agitation state (e.g. always read while stirring, or
+  always read N seconds after stirring stops) — see `docs/TEST_LOG.md`'s 2026-10-19
+  follow-up entry.

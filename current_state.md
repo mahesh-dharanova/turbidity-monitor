@@ -34,3 +34,7 @@ This is a pointer into git history for the next agent, not a duplicate of it.
 - No turbidity calibration reference solutions yet — Phase 1 stays in `UNCALIBRATED` mode.
 - Turbid sample's persistent high-frequency noise (not just its mean voltage) may be a
   useful signal later — not acted on in Phase 1, see `docs/TEST_LOG.md`'s open items.
+- A turbid sample's reading depends on agitation state (settling drifts it back toward the
+  clear-liquid range within minutes; active stirring gives the tightest, most repeatable
+  high-turbidity reading) — any future calibration/measurement protocol must fix this, see
+  `docs/TEST_LOG.md`'s 2026-10-19 follow-up entry.
