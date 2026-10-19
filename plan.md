@@ -12,9 +12,10 @@ Roadmap broken into chunks. Edit only on a real scope decision.
 
 1. [x] Scaffold — repo structure, docs, stub modules, git init.
    Verified: `scripts/compile.sh` succeeds on the empty orchestrator.
-2. [ ] Sensor module — wire the KIE-TS-300B (5V/GND/A0), implement `sensor.cpp`
+2. [x] Sensor module — wire the KIE-TS-300B (5V/GND/A0), implement `sensor.cpp`
    (raw ADC read + voltage), confirm the Uno R4 WiFi's real ADC resolution on hardware.
-   Verified: upload + monitor, dry vs in-water readings logged in `docs/TEST_LOG.md`.
+   Verified: upload + monitor, dry/distilled/lemon/turbid-solution readings logged in
+   `docs/TEST_LOG.md`.
 3. [ ] Filter module — windowed average + median-of-5 smoothing.
    Verified: `tests/run_tests.sh` covers flat input, single-spike rejection, ramp response.
 4. [ ] Health module — range / stuck-value / warm-up checks, independent of calibration.

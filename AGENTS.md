@@ -80,8 +80,12 @@ assumptions, anything that would make `sensor.*` do more than read and convert, 
 needing hardware you don't have physical access to verify.
 
 ## Hard-won facts
-- Uno R4 WiFi's exact usable ADC resolution was unverified at project start (datasheet
-  claims up to 14-bit); confirmed value goes in `architecture.md` once Chunk 2 is done.
-- No manufacturer datasheet found for "KIE-TS-300B ver-2.0_12227k" specifically; Phase 1
-  treats the closely related TS-300B public specs (5 V, 0–4.5 V analog out, <500 ms response)
-  as the working assumption, to be corrected against the physical module's observed behavior.
+- Uno R4 WiFi's 14-bit ADC resolution confirmed active on hardware in Chunk 2 (raw values
+  up to ~11717, ruling out silent 10/12-bit clipping).
+- No manufacturer datasheet found for "KIE-TS-300B ver-2.0_12227k" specifically; Chunk 2's
+  observed behavior (clearer liquid reads higher/tighter voltage; a turbid sample's mean
+  voltage lands near the dry-air baseline but never stops jittering) is consistent with the
+  public TS-300B spec used as the working assumption — the full voltage-to-NTU curve is
+  still unverified (Phase 2 scope).
+- Turbidity may show up as noise/variance rather than a mean-voltage shift — don't assume a
+  single scalar reading per sample is enough; see `docs/TEST_LOG.md`'s 2026-10-19 entry.

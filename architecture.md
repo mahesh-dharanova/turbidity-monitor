@@ -46,10 +46,18 @@ sensor.cpp  --raw ADC, voltage-->  filter.cpp  --smoothed voltage-->  health.cpp
 | Host-side unit tests via plain `g++`, no framework | `filter`/`health`/`calibration`/`reporting` have zero Arduino dependency; g++ is already installed; avoids adding PlatformIO/Unity for no benefit | 2026-10-16 |
 | Board: Arduino Uno R4 WiFi, FQBN `arduino:renesas_uno:unor4wifi` | User's hardware; WiFi unused in Phase 1 but available if a later phase needs it | 2026-10-16 |
 
-## Open hardware questions (resolve during Chunk 2, don't assume)
+## Open hardware questions
 
-- Exact ADC resolution the Uno R4 WiFi actually returns via `analogReadResolution()`
-  (datasheet claims up to 14-bit).
-- Exact pinout of the physical "KIE-TS-300B ver-2.0_12227k" module — no manufacturer
-  datasheet was found; treating it as the public TS-300B spec (5V, 0–4.5V analog out) until
-  confirmed against the real module.
+Resolved in Chunk 2 (see `docs/TEST_LOG.md`'s 2026-10-19 entry): 14-bit ADC resolution
+confirmed active (raw values up to ~11717, ruling out 10/12-bit clipping); wiring
+(VCC→5V, GND→GND, OUT→A0) confirmed correct; sensor responds distinctly and directionally
+to liquid clarity (dry air ~3.082V < turbid-solution mean ~3.0–3.13V ≈ lemon water ~3.48V <
+distilled water ~3.575V, clearest highest).
+
+Still open:
+
+- Exact pinout/behavior of the physical "KIE-TS-300B ver-2.0_12227k" module beyond what
+  Chunk 2 observed — no manufacturer datasheet exists; the full voltage-to-NTU curve is
+  still unverified (Phase 2 scope, needs real NTU reference standards).
+- The turbid sample's persistent high-frequency noise (not captured by mean voltage alone)
+  — a possible future `health`-signal candidate, not decided yet.
