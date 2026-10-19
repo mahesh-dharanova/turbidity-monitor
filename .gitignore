@@ -80,3 +80,7 @@ temp/
 *.bin
 *.elf
 tests/.build/
+
+# Local-only agent instructions, never pushed to remote
+AGENTS.md
+CLAUDE.md
